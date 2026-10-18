@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 class LicenciasITSE14RawImport
 {
     private const TIPO = 'anexo_14';
+    private const HOJA = 'ITSE 14';
     
     public int $importados = 0;
     public int $errores = 0;
@@ -25,7 +26,7 @@ class LicenciasITSE14RawImport
 
         try {
             $spreadsheet = IOFactory::load($filePath);
-            $sheet = $spreadsheet->getActiveSheet();
+            $sheet = $spreadsheet->getSheetByName(self::HOJA) ?? $spreadsheet->getActiveSheet();
             $rows = $sheet->toArray(null, true, true, true);
             $totalRows = count($rows);
 
@@ -60,7 +61,7 @@ class LicenciasITSE14RawImport
 
         try {
             $spreadsheet = IOFactory::load($filePath);
-            $sheet = $spreadsheet->getActiveSheet();
+            $sheet = $spreadsheet->getSheetByName(self::HOJA) ?? $spreadsheet->getActiveSheet();
             $rows = $sheet->toArray(null, true, true, true);
             $totalRows = count($rows);
 
@@ -110,25 +111,57 @@ class LicenciasITSE14RawImport
 
     private function parseFecha($valor): ?string
     {
-        if (empty($valor)) return null;
+        if (empty($valor)) {
+            return null;
+        }
+
+        Log::info("🔍 parseFecha recibió (ITSE14)", [
+            'valor' => $valor,
+            'tipo' => gettype($valor),
+            'es_numerico' => is_numeric($valor) ? 'sí' : 'no',
+        ]);
 
         try {
             if (is_numeric($valor) && $valor > 100) {
-                return \Carbon\Carbon::instance(
+                $fecha = \Carbon\Carbon::instance(
                     \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($valor)
-                )->format('Y-m-d');
+                );
+                Log::info("✓ Interpretado como serial Excel", ['resultado' => $fecha->format('Y-m-d')]);
+                return $fecha->format('Y-m-d');
             }
 
-            if (preg_match('/(\d{1,2})\/(\d{1,2})\/(\d{4})/', $valor)) {
-                return \Carbon\Carbon::createFromFormat('d/m/Y', $valor)->format('Y-m-d');
+            $valor = trim((string) $valor);
+
+            if (preg_match('/^(\d{4})-(\d{1,2})-(\d{1,2})$/', $valor)) {
+                $fecha = \Carbon\Carbon::createFromFormat('Y-m-d', $valor);
+                Log::info("✓ Ya estaba en formato ISO", ['resultado' => $fecha->format('Y-m-d')]);
+                return $fecha->format('Y-m-d');
+            }
+
+            if (preg_match('/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/', $valor, $m)) {
+                $dia = (int) $m[1];
+                $mes = (int) $m[2];
+                $anio = (int) $m[3];
+
+                if ($mes > 12 && $dia <= 12) {
+                    [$dia, $mes] = [$mes, $dia];
+                }
+
+                $fecha = \Carbon\Carbon::createFromDate($anio, $mes, $dia);
+                Log::info("✓ Interpretado como DD/MM/YYYY", ['resultado' => $fecha->format('Y-m-d')]);
+                return $fecha->format('Y-m-d');
             }
 
             if (preg_match('/(\d+)\s*-\s*(\d{4})/', $valor, $matches)) {
+                Log::warning("⚠️ Solo se encontró año, sin día/mes exacto", ['valor_original' => $valor]);
                 return $matches[2] . '-01-01';
             }
 
+            Log::warning("⚠️ Formato de fecha no reconocido", ['valor' => $valor]);
             return null;
+
         } catch (\Exception $e) {
+            Log::error("❌ Error parseando fecha", ['valor' => $valor, 'error' => $e->getMessage()]);
             return null;
         }
     }

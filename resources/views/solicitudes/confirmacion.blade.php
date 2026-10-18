@@ -9,8 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { font-family: 'Plus Jakarta Sans', sans-serif !important; }
-        .fa, .fas, .far, .fab, .fa-brands, .fa-classic, .fa-regular, .fa-solid, .fa-sharp { font-family: var(--fa-style-family,"Font Awesome 6 Free") !important; }
-
+        .fa, .fas, .far, .fa-classic, .fa-regular, .fa-solid, .fa-sharp { font-family: var(--fa-style-family,"Font Awesome 6 Free") !important; }
+        .fab, .fa-brands { font-family: "Font Awesome 6 Brands" !important; }
         :root {
             --brand:        #2563eb;
             --brand-light:  #eff6ff;
@@ -425,7 +425,7 @@
                     <div class="alert-icon">
                         <i class="fas fa-exclamation-triangle"></i>
                     </div>
-                    <div><strong>⚠️ AVISO IMPORTANTE - PAGO PRESENCIAL</strong></div>
+                    <div><strong>AVISO IMPORTANTE - PAGO PRESENCIAL</strong></div>
                     <p style="margin: 0.75rem 0 0.5rem 0;">
                         El pago del trámite se realiza <strong>presencialmente en la Municipalidad</strong>.
                     </p>

@@ -82,6 +82,57 @@
         }
 
         /* Logo */
+        .logo {
+    position: relative;
+    text-align: center;
+    padding: 28px 16px 22px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.logo img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 50%;
+    background: #fff;
+    padding: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 0 0 3px rgba(255, 255, 255, 0.12);
+    margin-bottom: 12px;
+}
+
+.logo h6 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0 0 2px;
+}
+.logo h6 {
+    color: #ffffff !important;
+}
+.logo p {
+    font-family: 'Inter', sans-serif;
+    font-size: 11.5px;
+    font-weight: 400;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.4;
+}
+.logo p {
+    color: #ffffff !important;
+}
+.sidebar-close {
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar-close:hover {
+    color: #fff !important;
+    transform: rotate(90deg);
+}
         .sidebar .logo {
             padding: 20px 16px 16px;
             text-align: center;
@@ -411,16 +462,14 @@ zone .kpi-green .itse-kpi-val, .itse-green-zone .kpi-red .itse-kpi-val {
 
 <!-- ── SIDEBAR ───────────────────────────────────────────────────── -->
 <div class="sidebar" id="sidebar">
-
-    <div class="logo">
-        <button class="sidebar-close btn btn-sm btn-link text-white float-end p-0 me-1"
-                onclick="toggleSidebar()">
-            <i class="fas fa-times"></i>
-        </button>
-        <img src="{{ asset('images/logo.jpg') }}" alt="Logo Municipalidad">
-        <h6>MUNICIPALIDAD DISTRITAL</h6>
-        <p>Andrés Avelino Cáceres D.</p>
-    </div>
+<div class="logo">
+    <button class="sidebar-close btn btn-sm btn-link float-end p-0 me-1" onclick="toggleSidebar()" aria-label="Cerrar menú">
+        <i class="fas fa-times"></i>
+    </button>
+    <img src="{{ asset('images/logo.jpg') }}" alt="Logo Municipalidad Distrital de Andrés Avelino Cáceres Dorregaray">
+    <h6>Municipalidad Distrital</h6>
+    <p>Andrés Avelino Cáceres Dorregaray</p>
+</div>
 
     <nav class="mt-1">
 
@@ -1564,7 +1613,7 @@ function toggleSidebar() {
 </body>
 </html>
 
-        
+          
 
 <!-- Inicializar Select2 -->
 <script>

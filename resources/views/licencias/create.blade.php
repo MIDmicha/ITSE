@@ -252,13 +252,26 @@
 
 <script>
     function toggleCampos() {
-        const tipo = document.querySelector('input[name="tipo_certificado"]:checked').value;
-        const esEvento = tipo === 'evento_publico';
-        document.getElementById('campos-anexo').style.display = esEvento ? 'none' : 'block';
-        document.getElementById('campos-evento').style.display = esEvento ? 'block' : 'none';
-        
-        // Filtrar actividades económicas según el tipo de certificado
-        filterActividadesEconomicas(tipo);
+    const tipo = document.querySelector('input[name="tipo_certificado"]:checked').value;
+    const esEvento = tipo === 'evento_publico';
+
+    const bloqueAnexo = document.getElementById('campos-anexo');
+    const bloqueEvento = document.getElementById('campos-evento');
+
+    bloqueAnexo.style.display = esEvento ? 'none' : 'block';
+    bloqueEvento.style.display = esEvento ? 'block' : 'none';
+
+    // Deshabilitar inputs del bloque oculto para que NO se envíen en el submit
+    bloqueAnexo.querySelectorAll('input, select, textarea').forEach(el => {
+        el.disabled = esEvento;
+    });
+    bloqueEvento.querySelectorAll('input, select, textarea').forEach(el => {
+        el.disabled = !esEvento;
+    });
+
+    // Filtrar actividades económicas según el tipo de certificado
+    filterActividadesEconomicas(tipo);
+
     }
 
     function filterActividadesEconomicas(tipo) {

@@ -575,7 +575,7 @@ body.dark-mode .itse-card-sub {
         <div class="itse-btn-group" style="display: flex; gap: 12px; align-items: center;">
             <form method="GET" action="{{ route('dashboard') }}" style="display: flex; gap: 8px; align-items: center;">
                 <label for="anio-filter" style="color: rgba(255,255,255,.75); font-size: 12px; font-weight: 500;">Filtrar por año:</label>
-                <select id="anio-filter" name="anio" style="padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,.4); background: rgba(255,255,255,.15); color: #ffffff; font-size: 13px; cursor: pointer;" onchange="this.form.submit();">
+                <select id="anio-filter" name="anio" style="padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,.4); background: rgba(255,255,255,.15); color: #0d0202ff; font-size: 13px; cursor: pointer;" onchange="this.form.submit();">
                     @php
                         $anioActual = now()->year;
                         $anioDesde = $anioActual - 5;

@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Trámite Online ITSE M.A..A.C.D</title>
+    <title>Trámite ITSE online M.A.A.C.D.</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome Local -->
     <link href="{{ asset('css/fontawesome.min.css') }}" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{ asset('images/logo_muni.png') }}">
-
+    
     <!-- Fallback icons via CSS if FontAwesome fails -->
     <style>
 
-        
         /* Icon display fallback */
         i[class*="fas "], i[class*="fab "], i[class*="far "] {
             display: inline-block;
@@ -36,7 +35,7 @@
         .fa, .fas, .far, .fab, .fa-brands, .fa-classic, .fa-regular, .fa-solid, .fa-sharp { font-family: var(--fa-style-family,"Font Awesome 6 Free") !important; }
 
         :root {
-            --brand:        #2563eb;
+           --brand:        #2563eb;
             --brand-light:  #eff6ff;
             --brand-dark:   #1e40af;
             --surface:      #ffffff;
@@ -47,7 +46,14 @@
             --green-main:   #12961d;
             --green-dark:   #0f2812;
         }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
 
+        .header-municipalidad h2,
+        .header-municipalidad h4 {
+            font-family: 'Poppins', sans-serif;
+        }
         body { 
             background: linear-gradient(180deg, var(--green-main) 0%, var(--green-dark) 100%);
             min-height: 100vh;
@@ -60,7 +66,14 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             background: var(--surface);
         }
-
+.header-municipalidad img {
+    width: 90px;
+    margin-bottom: 14px;
+    border-radius: 12px;
+    background: white;
+    padding: 8px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25), 0 0 0 4px rgba(255,255,255,0.15);
+}
         .header-municipalidad {
             text-align: center;
             color: white;
@@ -74,7 +87,7 @@
         }
 
         .header-municipalidad p {
-            font-size: 13px;
+            font-size: 30px;
             color: rgba(255, 255, 255, 0.85);
         }
 
@@ -154,8 +167,8 @@
         .opcion-card {
             cursor: pointer;
             border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 25px;
+            border-radius: 50px;
+            padding: 15px;
             text-align: center;
             transition: all 0.25s ease;
             background: var(--surface);
@@ -295,31 +308,27 @@
         }
 
         /* BUTTONS */
-        .btn-success {
-            background: var(--green-main);
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.15s;
-        }
+        .btn-header {
+    background: rgba(11, 17, 57, 0.78);
+    color: white;
+    border: 1px solid rgba(162, 204, 185, 0.25);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+}
 
-        .btn-success:hover {
-            background: var(--green-dark);
-            transform: translateY(-1px);
-        }
+.btn-header:hover {
+    background: rgba(27, 12, 93, 0.85);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    color: #fff;
+}
 
-        .btn-outline-secondary {
-            border: 1.5px solid var(--border);
-            color: var(--text-muted);
-            border-radius: 8px;
-            transition: all 0.15s;
-        }
-
-        .btn-outline-secondary:hover {
-            border-color: var(--green-main);
-            color: var(--green-main);
-            background: #f0fff0;
-        }
+.btn-header:active {
+    transform: translateY(0);
+}
 
         /* ALERTS */
         .alert-success {
@@ -487,17 +496,6 @@
             .drag-drop-zone { padding: 20px 15px; min-height: 150px; }
             .drag-drop-zone i { font-size: 2rem; }
         }
-
-
-
-
-
-
-
-
-
-        
-
 #paso3 .form-card {
     background: #ffffff !important;
 }
@@ -529,39 +527,12 @@
     margin-top: 16px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* letras */
 #datos-negocio .row,
 #datos-evento .row {
     padding-left: 12px;
     padding-right: 12px;
 }
-
-
-
 
 #precio-box {
     margin-left: 12px;
@@ -580,20 +551,29 @@
 <body>
 <div class="container">
     <div class="d-flex justify-content-end gap-2 mb-2">
-    <a href="{{ route('solicitudes.seguimiento') }}" class="btn btn-sm" style="background:rgba(7, 7, 77, 0.55); color:white; border:1px solid rgba(39, 3, 93, 0.3);">
-        <i class="fas fa-search me-2"></i>Seguimiento Trámite
-    </a>
-    <a href="{{ route('login') }}" class="btn btn-sm" style="background:rgba(7, 7, 77, 0.55); color:white; border:1px solid rgba(39, 3, 93, 0.3);">
-        <i class="fas fa-lock me-2"></i>Acceso Funcionarios
-    </a>
+    <a href="{{ route('solicitudes.seguimiento') }}" class="btn btn-sm btn-header">
+    <i class="fas fa-search me-2"></i>Seguimiento Trámite
+</a>
+<a href="{{ route('login') }}" class="btn btn-sm btn-header">
+    <i class="fas fa-lock me-2"></i>Acceso Funcionarios
+</a>
 </div>
 
     <div class="header-municipalidad">
-        <img src="{{ asset('images/logo.jpg') }}" alt="Logo" style="width:70px; margin-bottom:10px;">
-        <h4>Municipalidad Distrital de Andrés Avelino Cáceres Dorregaray</h4>
-        <p><i class="fas fa-file-alt me-2"></i>Solicitud de Certificado ITSE en Línea</p>
+    <a href="{{ route('solicitudes.formulario') }}" title="Volver al inicio">
+        <img src="{{ asset('images/logo.jpg') }}" alt="Logo" style="width:80px; margin-bottom:12px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); cursor:pointer;">
+    </a>
+     <h4 style="font-size:16px; font-weight:600; letter-spacing:0.5px; opacity:0.9;">Municipalidad Distrital de Andrés Avelino Cáceres Dorregaray</h4>
+        <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.5px; margin:8px 0 4px; text-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+            Solicitud de Certificado ITSE
+            <span style="display:inline-block; background:rgba(242, 238, 238, 0.2); border-radius:6px; padding:2px 10px; font-size:14px; font-weight:600; vertical-align:middle; margin-left:6px;">en Línea</span>
+        </h2>
+        <p style="font-size:13px; color:rgba(255, 254, 254, 1); margin:4px 0 0;">
+            <i class="fas fa-shield-alt me-2"></i>Inspección Técnica de Seguridad en Edificaciones
+        </p>
     </div>
 
+    
     <div class="progress-steps">
         <div class="step-dot activo" id="dot1">1</div>
         <div class="step-line" id="line1"></div>
@@ -625,9 +605,25 @@
                 <div class="paso activo" id="paso1">
                     <div class="card form-card p-4">
                         <h5 class="fw-bold text-center mb-4">
-                            <i class="fas fa-question-circle text-success me-2"></i>
-                            ¿Qué necesitas certificar?
+                            <i class="fas text-success me-2"></i>
+                            ¿Cómo funciona este trámite?
                         </h5>
+                        {{-- AVISO INFORMATIVO --}}
+    <div class="row justify-content-center mb-3">
+        <div class="col-md-10">
+            <div style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25); border-radius:12px; padding:16px 20px; backdrop-filter:blur(4px);">
+                <div style="display:flex; align-items:flex-start; gap:12px;">
+                    <div style="font-size:22px; margin-top:14px;">💡</div>
+                    <div>
+                        <p style="color:black; font-weight:700; font-size:14px; margin:0 0 4px;"></p>
+                        <p style="color:rgba(5, 3, 21, 0.85); font-size:12.5px; margin:0; line-height:1.6;">
+                            Selecciona el tipo de certificado que necesitas según tu caso — ya sea para un <strong style="color:black;">local o negocio</strong> o para <strong style="color:black;">organizar un evento público</strong>. El sistema te guiará paso a paso para completar tu solicitud de forma rápida y sencilla.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="opcion-card" onclick="elegirTipo('evento')">
@@ -638,7 +634,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="opcion-card" onclick="elegirTipo('negocio')">
-                                    <i class="fas fa-store"></i>
+                                    <i class="fa"></i>
                                     <h5>Mi Local o Negocio</h5>
                                     <p>Tiendas, restaurantes, oficinas, instituciones educativas</p>
                                 </div>
@@ -647,17 +643,20 @@
                     </div>
                 </div>
 
-                {{-- PASO 2A: Tipo de negocio --}}
+
+                                {{-- PASO 2A: Tipo de negocio --}}
                 <div class="paso" id="paso2negocio">
                     <div class="card form-card p-4">
                         <h5 class="fw-bold text-center mb-2">
-                            <i class="fas fa-store text-success me-2"></i>
                             ¿Qué tipo de negocio tienes?
                         </h5>
                         <p class="text-center text-muted mb-4">Selecciona el que más se parezca a tu local</p>
 
-                        <p class="fw-bold text-success mb-2"><i class="fas fa-circle me-1" style="font-size:10px;"></i> Riesgo Bajo / Medio</p>
-                        <div class="row g-2 mb-3">
+                        <div id="aviso-negocio" style="display:none; background: #fef2f2; border: 1px solid #fecaca; border-left: 4px solid #dc3545; border-radius: 8px; padding: 10px 16px; margin-bottom: 15px; text-align:center; font-size: 0.9rem; color: #7f1d1d;">
+                            <i class="fas fa-triangle-exclamation me-2"></i>Selecciona el tipo de negocio antes de continuar
+                        </div>
+
+                        <p class="fw-bold text-success mb-2"><i class="fas fa-circle me-1" style="font-size:10px;"></i> Riesgo Bajo / Medio</p>  <div class="row g-2 mb-3">
                             <div class="col-6 col-md-4">
                                 <div class="area-card" onclick="elegirNegocio('Bodega / Tienda de abarrotes', 'anexo_13', 'bajo', 'bodega')">
                                     <i class="fas fa-shopping-basket d-block"></i>
@@ -753,7 +752,7 @@
                             <div style="font-size: 1.2rem; margin-bottom: 0.75rem;">
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
-                            <div><strong>⚠️ IMPORTANTE - PAGO PRESENCIAL</strong></div>
+                            <div><strong>IMPORTANTE - PAGO PRESENCIAL</strong></div>
                             <p style="margin: 0.75rem 0 0.5rem 0;">
                                 El pago del trámite se realiza <strong>presencialmente en nuestras instalaciones</strong>.
                             </p>
@@ -770,9 +769,9 @@
                             <button type="button" class="btn btn-outline-secondary btn-sm" onclick="irPaso(1)">
                                 <i class="fas fa-arrow-left me-1"></i>Volver
                             </button>
-                            <button type="button" class="btn btn-success btn-sm float-end" onclick="irPaso(3)">
-                                Continuar <i class="fas fa-arrow-right ms-1"></i>
-                            </button>
+                            <button type="button" class="btn btn-success btn-sm float-end" onclick="validarNegocioYContinuar()">
+                            Continuar <i class="fas fa-arrow-right ms-1"></i>
+                        </button>
                         </div>
                     </div>
                 </div>
@@ -833,7 +832,7 @@
                             <div style="font-size: 1.2rem; margin-bottom: 0.75rem;">
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
-                            <div><strong>⚠️ IMPORTANTE - PAGO PRESENCIAL</strong></div>
+                            <div><strong>IMPORTANTE - PAGO PRESENCIAL</strong></div>
                             <p style="margin: 0.75rem 0 0.5rem 0;">
                                 El pago del trámite se realiza <strong>presencialmente en nuestras instalaciones</strong>.
                             </p>
@@ -915,14 +914,21 @@
                             </div>
 
                             {{-- WHATSAPP TERCERO --}}
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label fw-bold">WhatsApp <i class="fab fa-whatsapp text-success"></i> <span class="text-danger">*</span></label>
+                           <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">
+                                    WhatsApp
+                                    <svg width="18" height="18" viewBox="0 0 24 24" style="vertical-align:-4px; margin:0 2px;">
+                                        <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 5L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm0 18.15c-1.51 0-2.98-.4-4.26-1.16l-.31-.18-3.15.83.84-3.07-.2-.32a8.19 8.19 0 0 1-1.25-4.34c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.17 8.17 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23z"/>
+                                        <path fill="#25D366" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.91-2.2-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35z"/>
+                                    </svg>
+                                    <span class="text-danger">*</span>
+                                </label>
                                 <input type="text" name="telefono_whatsapp" id="telefono_whatsapp"
                                     class="form-control @error('telefono_whatsapp') is-invalid @enderror"
                                     value="{{ old('telefono_whatsapp') }}"
                                     maxlength="9" inputmode="numeric"
                                     oninput="this.value=this.value.replace(/[^0-9]/g,'')"
-                                    placeholder="9 dígitos"
+                                    placeholder="9 dígitos">
                                 <div class="label-error" id="err_telefono">Ingresa tu número de WhatsApp</div>
                                 @error('telefono_whatsapp')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
@@ -1056,10 +1062,10 @@
                         </div>
                         <div class="alert alert-success mb-3" style="border-left: 5px solid #12961d; background: linear-gradient(90deg, rgba(18, 150, 29, 0.1), transparent);">
                             <i class="fas fa-file-alt me-2" style="color: #12961d; font-size: 1.2rem;"></i>
-                            <strong style="font-size: 1.05rem;">📋 Completa tu Plantilla FIT ITSE</strong>
+                            <strong style="font-size: 1.05rem;">📋 Completa tu Plantilla FUT ITSE</strong>
                             <p class="mb-2 mt-2">Se abrirá con tus datos prellenados automáticamente.</p>
                             <button type="button" class="btn btn-lg btn-success" onclick="abrirPlantillaITCE()" style="font-weight: 700; font-size: 1rem; padding: 0.75rem 2rem;">
-                                <i class="fas fa-file-excel me-2"></i>✨ Llenar Plantilla FIT ITSE ✨
+                                <i class="fas fa-file-excel me-2"></i>✨ Llenar Plantilla FUT ITSE ✨
                             </button>
                         </div>
                         <div class="row">
@@ -1243,6 +1249,8 @@ function elegirTipo(tipo) {
 
 function elegirNegocio(nombreNegocio, anexo, riesgo, nicho = '') {
     tipoCertificado = anexo;
+    const aviso = document.getElementById('aviso-negocio');
+    if (aviso) aviso.style.display = 'none';
     nivelRiesgo     = riesgo;
     nichoSeleccionado = nicho; // Guardar el ID del nicho
     document.getElementById('tipo_certificado_hidden').value = anexo;
@@ -1448,7 +1456,16 @@ function marcarError(inputId, errorId) {
     if (input) input.classList.add('campo-error');
     if (error) error.style.display = 'block';
 }
-
+        function validarNegocioYContinuar() {
+            const aviso = document.getElementById('aviso-negocio');
+            if (!tipoCertificado || tipoCertificado === '') {
+                aviso.style.display = 'block';
+                aviso.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            aviso.style.display = 'none';
+            irPaso(3);
+        }
 function validarYContinuar() {
     limpiarErrores();
     const errores = [];

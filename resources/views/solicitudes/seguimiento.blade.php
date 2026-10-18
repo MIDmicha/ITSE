@@ -208,9 +208,10 @@
             padding: 1rem;
         }
 
-        .datos-card .dato-row {
+            .datos-card .dato-row {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            gap: 12px;
             padding: 0.5rem 0;
             border-bottom: 1px solid var(--border);
             font-size: 0.85rem;
@@ -224,8 +225,9 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.04em;
-            min-width: 100px;
+            min-width: 110px;
             flex-shrink: 0;
+            padding-top: 2px;
         }
 
         .datos-card .dato-valor {
@@ -326,7 +328,28 @@
             border-color: rgba(255, 255, 255, 0.3);
             color: white;
         }
-
+            /* ALERT RECHAZADO */
+            .alert-rechazado {
+                background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+                border: 1px solid #fca5a5;
+                border-left: 4px solid #dc3545;
+                border-radius: 10px;
+                padding: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+            .alert-rechazado span {
+                font-size: 0.85rem;
+                color: #991b1b;
+                font-weight: 500;
+            }
+            .alert-rechazado .btn {
+                font-size: 0.8rem;
+                border-radius: 6px;
+            }
         /* ALERT PAGO PRESENCIAL */
         .alert-pago-presencial {
             background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
@@ -355,8 +378,9 @@
         }
 
         /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .alert-certificado {
+                @media (max-width: 768px) {
+            .alert-certificado,
+            .alert-rechazado {
                 flex-direction: column;
                 align-items: flex-start;
             }
@@ -370,7 +394,7 @@
 <body>
 <div class="container">
 
-    {{-- BOTONES SUPERIORES --}}
+       {{-- BOTONES SUPERIORES --}}
     <div class="d-flex justify-content-end gap-2 mb-3">
         <a href="{{ route('solicitudes.seguimiento') }}" class="btn btn-sm" style="background:rgba(7,7,77,0.55); color:white; border:1px solid rgba(39,3,93,0.3);">
             <i class="fas fa-search me-2"></i>Seguimiento Trámite
@@ -382,7 +406,9 @@
 
     {{-- HEADER --}}
     <div class="header-logo text-center mb-4">
-        <img src="{{ asset('images/logo.jpg') }}" alt="Logo Municipalidad">
+    <a href="{{ route('solicitudes.formulario') }}" title="Ir a la página principal">
+        <img src="{{ asset('images/logo.jpg') }}" alt="Logo Municipalidad" style="cursor:pointer;">
+    </a>
         <h4>Municipalidad Distrital de Andrés Avelino Cáceres Dorregaray</h4>
         <p><i class="fas fa-search me-1"></i>Seguimiento de Trámite Online</p>
     </div>
@@ -409,69 +435,27 @@
 
             {{-- BUSCADOR --}}
             <div class="card search-card mb-4">
-                {{-- TABS PARA ELEGIR TIPO DE BÚSQUEDA --}}
-                <ul class="nav nav-tabs mb-3" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link {{ !request('dni') ? 'active' : '' }}" id="tab-codigo" data-bs-toggle="tab" data-bs-target="#search-codigo" type="button">
-                            <i class="fas fa-ticket-alt me-2"></i>Por Código
+                {{-- BÚSQUEDA ÚNICA: CÓDIGO O DNI --}}
+                <p class="fw-bold mb-3" style="color:#333;">
+                    <i class="fas fa-magnifying-glass text-success me-2"></i>
+                    Ingresa tu código de seguimiento o tu DNI
+                </p>
+                <form action="{{ route('solicitudes.seguimiento') }}" method="GET">
+                    <div class="input-group">
+                        <input type="text" name="buscar" class="form-control"
+                            placeholder="SOL-2026-ABC123 o tu N° DNI"
+                            value="{{ request('buscar') }}"
+                            maxlength="20"
+                            autocomplete="off">
+                        <button type="submit" class="btn btn-buscar">
+                            <i class="fas fa-search me-2"></i>Buscar
                         </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link {{ request('dni') ? 'active' : '' }}" id="tab-dni" data-bs-toggle="tab" data-bs-target="#search-dni" type="button">
-                            <i class="fas fa-id-card me-2"></i>Por DNI
-                        </button>
-                    </li>
-                </ul>
-
-                <div class="tab-content">
-                    {{-- BÚSQUEDA POR CÓDIGO --}}
-                    <div class="tab-pane fade {{ !request('dni') ? 'show active' : '' }}" id="search-codigo">
-                        <p class="fw-bold mb-3" style="color:#333;">
-                            <i class="fas fa-ticket-alt text-success me-2"></i>
-                            Ingresa tu código de seguimiento
-                        </p>
-                        <form action="{{ route('solicitudes.seguimiento') }}" method="GET">
-                            <div class="input-group">
-                                <input type="text" name="codigo" class="form-control"
-                                    placeholder="Ej: SOL-2026-ABC123"
-                                    value="{{ request('codigo') }}"
-                                    autocomplete="off">
-                                <button type="submit" class="btn btn-buscar">
-                                    <i class="fas fa-search me-2"></i>Buscar
-                                </button>
-                            </div>
-                            <small class="text-muted mt-2 d-block">
-                                <i class="fas fa-info-circle me-1"></i>
-                                El código fue enviado al confirmar tu solicitud
-                            </small>
-                        </form>
                     </div>
-
-                    {{-- BÚSQUEDA POR DNI --}}
-                    <div class="tab-pane fade {{ request('dni') ? 'show active' : '' }}" id="search-dni">
-                        <p class="fw-bold mb-3" style="color:#333;">
-                            <i class="fas fa-id-card text-success me-2"></i>
-                            Ingresa tu DNI para ver todas tus solicitudes
-                        </p>
-                        <form action="{{ route('solicitudes.seguimiento') }}" method="GET">
-                            <div class="input-group">
-                                <input type="text" name="dni" class="form-control"
-                                    placeholder="Ej: 12345678"
-                                    value="{{ request('dni') }}"
-                                    autocomplete="off"
-                                    pattern="\d{7,12}"
-                                    title="Ingresa un DNI válido (7-12 dígitos)">
-                                <button type="submit" class="btn btn-buscar">
-                                    <i class="fas fa-search me-2"></i>Buscar
-                                </button>
-                            </div>
-                            <small class="text-muted mt-2 d-block">
-                                <i class="fas fa-info-circle me-1"></i>
-                                Verás todas tus solicitudes registradas
-                            </small>
-                        </form>
-                    </div>
-                </div>
+                    <small class="text-muted mt-2 d-block">
+                        <i class="fas fa-info-circle me-1"></i>
+                        El código fue enviado al confirmar tu solicitud, o usa tu DNI para ver todas tus solicitudes
+                    </small>
+                </form>
             </div>
 
             {{-- RESULTADO ENCONTRADO --}}
@@ -573,7 +557,7 @@
                     <div style="font-size: 1.2rem; margin-bottom: 0.75rem;">
                         <i class="fas fa-exclamation-triangle"></i>
                     </div>
-                    <div><strong>⚠️ IMPORTANTE - PAGO PRESENCIAL</strong></div>
+                    <div><strong>IMPORTANTE - PAGO PRESENCIAL</strong></div>
                     <p style="margin: 0.75rem 0 0.5rem 0;">
                         El pago del trámite se realiza <strong>presencialmente en la Municipalidad</strong>.
                     </p>
@@ -598,17 +582,36 @@
                     </a>
                 </div>
                 @endif
+
+                @if($solicitud->estado == 'rechazado')
+                <div class="alert-certificado" style="background: #fef2f2; border: 1px solid #fecaca;">
+                    <div style="width: 100%;">
+                        <div style="margin-bottom: 0.5rem;">
+                            <i class="fas fa-triangle-exclamation me-2" style="color: #dc3545;"></i>
+                            <strong>Tu trámite fue rechazado</strong>
+                        </div>
+                        @if($solicitud->observaciones)
+                        <p style="margin: 0.5rem 0; color: #6b7280; font-size: 0.9rem;">
+                            Revisa las observaciones arriba para saber qué corregir.
+                        </p>
+                        @endif
+                        <a href="{{ route('solicitudes.subsanar', $solicitud->codigo_seguimiento) }}" class="btn btn-danger btn-sm">
+                            <i class="fas fa-pen me-1"></i>Corregir mi trámite
+                        </a>
+                    </div>
+                </div>
+                @endif
             </div>
 
-            {{-- NO ENCONTRADO --}}
-            @elseif(request('codigo'))
+            {{-- NO ENCONTRADO POR CÓDIGO --}}
+            @elseif(request('buscar') && !ctype_digit(trim(request('buscar'))))
             <div class="card mb-4">
                 <div class="no-encontrado">
                     <div class="icon-circle">
                         <i class="fas fa-search"></i>
                     </div>
                     <h6 class="fw-bold text-muted">No se encontró ninguna solicitud</h6>
-                    <p class="text-muted small">Verifica que el código <strong>{{ request('codigo') }}</strong> esté escrito correctamente</p>
+                    <p class="text-muted small">Verifica que el código <strong>{{ request('buscar') }}</strong> esté escrito correctamente</p>
                 </div>
             </div>
             @endif
@@ -677,7 +680,7 @@
 
                         {{-- BOTONES --}}
                         <div class="d-flex gap-2">
-                            <a href="{{ route('solicitudes.seguimiento', ['codigo' => $sol->codigo_seguimiento]) }}" class="btn btn-sm btn-outline-primary">
+                            <a href="{{ route('solicitudes.seguimiento', ['buscar' => $sol->codigo_seguimiento]) }}" class="btn btn-sm btn-outline-primary">
                                 <i class="fas fa-eye me-1"></i>Ver detalles
                             </a>
                             @if($sol->estado == 'aprobado' && $sol->licencia_id)
@@ -690,7 +693,7 @@
                 </div>
                 @endforeach
             </div>
-            @elseif(request('dni'))
+            @elseif(request('buscar') && ctype_digit(trim(request('buscar'))))
             {{-- NO ENCONTRADO POR DNI --}}
             <div class="card mb-4">
                 <div class="no-encontrado">
@@ -698,27 +701,25 @@
                         <i class="fas fa-search"></i>
                     </div>
                     <h6 class="fw-bold text-muted">No se encontraron solicitudes</h6>
-                    <p class="text-muted small">No hay solicitudes registradas con el DNI <strong>{{ request('dni') }}</strong></p>
+                    <p class="text-muted small">No hay solicitudes registradas con el DNI <strong>{{ request('buscar') }}</strong></p>
                 </div>
             </div>
             @endif
 
-                    {{-- BOTONES INFERIORES --}}
-        <div class="d-flex justify-content-center gap-3 mt-3">
-            <a href="javascript:history.back()" class="nueva-sol-link">
-                <i class="fas fa-arrow-left"></i> Volver
-            </a>
-            <a href="{{ route('solicitudes.formulario') }}" class="nueva-sol-link">
-                <i class="fas fa-plus"></i> Nueva solicitud
-            </a>
-        </div>
+            {{-- BOTONES INFERIORES --}}
+            <div class="d-flex justify-content-center gap-3 mt-3">
+                <a href="javascript:history.back()" class="nueva-sol-link">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </a>
+                <a href="{{ route('solicitudes.formulario') }}" class="nueva-sol-link">
+                    <i class="fas fa-plus"></i> Nueva solicitud
+                </a>
+            </div>
 
         </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
 
 </body>
 </html>

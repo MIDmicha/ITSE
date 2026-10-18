@@ -152,23 +152,30 @@ class SolicitudController extends Controller
     }
 
     public function seguimiento(Request $request)
-    {
-        $solicitud = null;
-        $solicitudes = null;
-        
-        // Búsqueda por código de seguimiento (una solicitud)
-        if ($request->codigo) {
-            $solicitud = Solicitud::where('codigo_seguimiento', $request->codigo)->first();
-        }
-        // Búsqueda por DNI/RUC (múltiples solicitudes)
-        elseif ($request->dni) {
-            $solicitudes = Solicitud::where('dni_ruc', $request->dni)
+{
+    $solicitud = null;
+    $solicitudes = null;
+
+    $busqueda = trim($request->buscar ?? $request->codigo ?? $request->dni ?? '');
+
+    // Límite de seguridad: evita búsquedas absurdamente largas
+    $busqueda = substr($busqueda, 0, 20);
+
+    if ($busqueda !== '') {
+        // Si es solo números, buscar por DNI/RUC (puede haber varias solicitudes)
+        if (ctype_digit($busqueda)) {
+            $solicitudes = Solicitud::where('dni_ruc', $busqueda)
                 ->orderBy('created_at', 'desc')
                 ->get();
         }
-        
-        return view('solicitudes.seguimiento', compact('solicitud', 'solicitudes'));
+        // Si no, se asume que es un código de seguimiento
+        else {
+            $solicitud = Solicitud::where('codigo_seguimiento', $busqueda)->first();
+        }
     }
+
+    return view('solicitudes.seguimiento', compact('solicitud', 'solicitudes'));
+}
 
     // ===== PANEL FUNCIONARIO =====
 

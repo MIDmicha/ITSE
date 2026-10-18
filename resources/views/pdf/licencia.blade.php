@@ -35,7 +35,7 @@
         .header .td-text p { font-size: 9px; color: #555; font-style: italic; }
 
         /* FRANJAS */
-        .franja-azul { background: #1a3c6e; height: 2px; }
+        /* .franja-azul { background: #1a3c6e; height: 2px; } */
 
         /* ANEXO */
         .anexo-badge { text-align: center; margin: 8px 0; }
@@ -207,7 +207,7 @@
     <table>
         <tr>
             <td>Andrés Avelino Cáceres Dorregaray</td>
-            <td class="vigencia-right">VIGENCIA: {{ strtoupper($licencia->vigencia) }}*</td>
+            <td class="vigencia-right">VIGENCIA: {{ strtoupper($licencia->vigencia) }}</td>
         </tr>
     </table>
 </div>

@@ -501,11 +501,7 @@
                                     <i class="fas fa-file-pdf"></i>
                                 </a>
                             @endif
-                            @if($solicitud->email)
-                                <a href="mailto:{{ $solicitud->email }}" class="btn-action mail" title="Enviar email">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            @endif
+                           
                             @if($solicitud->telefono_whatsapp)
                                 <a href="https://wa.me/{{ preg_replace('/\D/', '', $solicitud->telefono_whatsapp) }}" target="_blank" class="btn-action whatsapp" title="WhatsApp">
                                     <i class="fab fa-whatsapp"></i>

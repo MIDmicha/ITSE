@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\Storage;
 
 class PdfController extends Controller
 {
+    /**
+ * Descarga pública del certificado — solo si la licencia está aprobada.
+ */
+public function descargaPublica(Licencia $licencia)
+{
+    if ($licencia->estado !== 'aprobado') {
+        abort(403, 'Este certificado aún no está disponible para descarga.');
+    }
+
+    return $this->generarLicencia($licencia);
+}
     public function generarLicencia(Licencia $licencia)
     {
         // ✅ Si está firmado, descargar el PDF firmado

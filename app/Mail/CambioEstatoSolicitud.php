@@ -36,7 +36,7 @@ class CambioEstatoSolicitud extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.cambio-estado',
+            markdown: 'emails.cambio-estado',
             with: [
                 'solicitud' => $this->solicitud,
                 'estado_legible' => $this->obtenerEstadoLegible(),

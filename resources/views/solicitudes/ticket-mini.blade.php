@@ -169,7 +169,7 @@
 
             <!-- Monto Pagado -->
             <div class="ticket-mini-amount">
-                <div class="ticket-mini-amount-label">💳 Monto Pagado</div>
+                <div class="ticket-mini-amount-label">💳 Monto A Pagar</div>
                 <div class="ticket-mini-amount-value">S/. {{ number_format($solicitud->getMontoPagoCalculado(), 2, '.', '') }}</div>
             </div>
 

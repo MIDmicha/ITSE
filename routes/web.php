@@ -18,7 +18,7 @@ use App\Http\Controllers\AdminSignatureController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    return redirect()->route('solicitudes.formulario');
 });
 
 // ===== RUTAS PÚBLICAS =====
@@ -28,6 +28,10 @@ Route::get('consulta/{licencia}', [ConsultaPublicaController::class, 'detalle'])
 Route::get('verificar/{numero}', [PdfController::class, 'verificar'])->name('licencias.verificar');
 Route::get('pdf/fut', [PdfController::class, 'generarFUT'])->name('pdf.fut');
 Route::post('importar/licencias', [ImportController::class, 'importLicencias'])->name('importar.licencias');
+Route::get('tramite/subsanar/{codigo}', [App\Http\Controllers\SubsanacionController::class, 'formulario'])->name('solicitudes.subsanar');
+Route::post('tramite/subsanar/{codigo}/verificar', [App\Http\Controllers\SubsanacionController::class, 'verificar'])->name('solicitudes.subsanar.verificar');
+Route::post('tramite/subsanar/{codigo}', [App\Http\Controllers\SubsanacionController::class, 'guardar'])->name('solicitudes.subsanar.guardar');
+Route::get('tramite/subsanar/{codigo}/volver', [App\Http\Controllers\SubsanacionController::class, 'volverVerificacion'])->name('solicitudes.subsanar.volver');
 
 // Trámite online público
 Route::get('tramite', [SolicitudController::class, 'formulario'])->name('solicitudes.formulario');
@@ -46,6 +50,7 @@ Route::post('revision/{token}/guardar', [RevisionSolicitudController::class, 'gu
 Route::withoutMiddleware(['Illuminate\Foundation\Http\Middleware\VerifyCsrfToken'])->group(function () {
     Route::post('api/consultar-dni', [SolicitudController::class, 'consultarDNI'])->name('api.consultar-dni');
     Route::post('api/consultar-ruc', [SolicitudController::class, 'consultarRUC'])->name('api.consultar-ruc');
+    Route::get('consulta/{licencia}/pdf', [PdfController::class, 'descargaPublica'])->name('consulta.pdf');
 });
 
 // ===== RUTAS PRIVADAS =====
